@@ -5,13 +5,17 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "factkg-extensions"
 version = "0.1.0"
-description = "Proof-of-concept repository extending FactKG with 3 research gaps"
+description = "Research extensions for FactKG: fact verification via reasoning on knowledge graphs"
 readme = "README.md"
 requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Research Intern Candidate"}
+]
 dependencies = [
-    "pydantic>=2.0.0",
-    "pyyaml>=6.0",
     "numpy>=1.24.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0.0",
     "networkx>=3.0",
     "requests>=2.31.0",
 ]
@@ -19,13 +23,16 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0",
+    "pytest-cov>=4.0",
     "ruff>=0.1.0",
 ]
 ml = [
     "torch>=2.0.0",
     "torch-geometric>=2.3.0",
-    "sentence-transformers>=2.2.2",
+    "sentence-transformers>=2.2.0",
+    "transformers>=4.30.0",
     "openai>=1.0.0",
+    "SPARQLWrapper>=2.0.0",
 ]
 
 [tool.setuptools.packages.find]
@@ -34,11 +41,12 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+python_files = "test_*.py"
 
 [tool.ruff]
 line-length = 100
 target-version = "py310"
 
 [tool.ruff.lint]
-select = ["E", "F", "I"]
-ignore = []
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
